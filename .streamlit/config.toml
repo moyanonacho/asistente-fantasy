@@ -1,0 +1,13 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
+
+# Tema oscuro (azul noche) con acento rojo
+[theme]
+base = "dark"
+primaryColor = "#9B1C1F"
+backgroundColor = "#2C4066"
+secondaryBackgroundColor = "#1F2D44"
+textColor = "#E8ECF4"

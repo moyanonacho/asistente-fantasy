@@ -1,0 +1,9 @@
+﻿streamlit==1.66.1
+requests==2.34.2
+pandas==3.1.0
+python-dotenv==1.2.4
+yt-dlp==2026.10.26
+youtube-transcript-api==1.2.4
+beautifulsoup4==4.15.0
+markdown==3.11.2
+tzdata==2026.5

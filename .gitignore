@@ -1,0 +1,20 @@
+# Solo se sube a GitHub lo que necesita la web del Asistente Fantasy.
+# Todo lo demás (secretos .env, otros proyectos, caché de jugadores, transcripciones, notas) se queda en el PC.
+*
+!.gitignore
+!app.py
+!analisis.py
+!fuentes.py
+!ilustraciones.py
+!partidos.py
+!proyecciones.py
+!sleeper.py
+!vistas.py
+!requirements.txt
+!.streamlit/
+!.streamlit/config.toml
+!data/
+!data/analisis/
+!data/analisis/*.md
+!data/partidos/
+!data/partidos/*.json
