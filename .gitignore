@@ -13,6 +13,9 @@
 !requirements.txt
 !.streamlit/
 !.streamlit/config.toml
+!.github/
+!.github/workflows/
+!.github/workflows/*.yml
 !data/
 !data/analisis/
 !data/analisis/*.md

@@ -1,0 +1,40 @@
+# Mantiene despierta la web de Streamlit Cloud: la abre con un navegador cada 6 horas
+# (Streamlit la duerme tras 12 horas sin visitas) y, si está dormida, pulsa el botón para despertarla.
+name: Mantener despierta la web
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  despertar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar navegador
+        run: |
+          pip install playwright==1.48.0
+          python -m playwright install --with-deps chromium
+      - name: Visitar la web
+        run: |
+          python - <<'EOF'
+          from playwright.sync_api import sync_playwright
+
+          URL = "https://asistente-fantasy-nami.streamlit.app/"
+          with sync_playwright() as p:
+              page = p.chromium.launch().new_page()
+              page.goto(URL, timeout=90_000)
+              page.wait_for_timeout(10_000)
+              boton = page.get_by_role("button", name="get this app back up")
+              if boton.count():
+                  print("La web estaba dormida: despertándola...")
+                  boton.first.click()
+                  page.wait_for_timeout(90_000)
+              else:
+                  print("La web estaba despierta.")
+                  page.wait_for_timeout(20_000)
+          EOF
