@@ -1,6 +1,7 @@
 """El "cerebro": prepara toda la información y se la pasa a Claude Code (con tu suscripción)."""
 import json
 import os
+import re
 import shutil
 import subprocess
 from datetime import datetime
@@ -256,7 +257,49 @@ indicando de qué fuente sale cada cosa.
 Enlaces de las noticias y artículos que has consultado.
 
 Sé directo y concreto. Explica el porqué de cada decisión en una o dos frases.
-Pon el emoji 🏥 delante del nombre de cualquier jugador que esté en la lista de lesionados (IR)."""
+Pon el emoji 🏥 delante del nombre de cualquier jugador que esté en la lista de lesionados (IR).
+
+Por último, DESPUÉS de las fuentes, añade un bloque de código con la etiqueta fantasticos (```fantasticos) que
+contenga solo este JSON con lo que dicen Los Fantásticos en sus vídeos sobre waivers y fichajes:
+{{"videos": ["título de cada vídeo de Los Fantásticos usado"],
+  "jugadores": [{{"nombre": "Nombre Apellido", "veredicto": "fichar" | "vigilar" | "evitar",
+                  "comentario": "lo que dicen ellos, en 25 palabras como mucho"}}]}}
+Incluye TODOS los jugadores que recomiendan fichar o vigilar, o que desaconsejan, estén libres o no en mi liga.
+Escribe los nombres completos y bien escritos (las transcripciones automáticas los deforman). Recoge su opinión,
+no la tuya. Si no hay vídeos de Los Fantásticos o no hablan de waivers, deja "jugadores" vacío."""
+
+
+FANT_RE = re.compile(r"```fantasticos\s*\n(.*?)```", re.S)
+
+
+def split_fantasticos(report):
+    """Separa del informe el bloque JSON con las opiniones de Los Fantásticos: (informe limpio, datos o None)."""
+    match = FANT_RE.search(report)
+    if not match:
+        return report, None
+    clean = (report[:match.start()] + report[match.end():]).rstrip() + "\n"
+    try:
+        data = json.loads(match.group(1))
+    except ValueError:
+        return clean, None
+    return clean, data if isinstance(data.get("jugadores"), list) else None
+
+
+def save_fantasticos(data, week):
+    """Opiniones de Los Fantásticos de la semana: data/analisis/fantasticos_semana_09.json (sirven a todos los equipos)."""
+    ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
+    data = {**data, "semana": week, "fecha": f"{datetime.now():%d/%m/%Y %H:%M}"}
+    (ANALYSIS_DIR / f"fantasticos_semana_{week:02d}.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def load_fantasticos(week):
+    """Las de esta semana o, si aún no hay, las de la anterior (o None)."""
+    for wk in (week, week - 1):
+        path = ANALYSIS_DIR / f"fantasticos_semana_{wk:02d}.json"
+        if path.exists():
+            return json.loads(path.read_text(encoding="utf-8"))
+    return None
 
 
 def run_claude(prompt, timeout_min=10):

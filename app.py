@@ -682,6 +682,9 @@ with tab_ai:
                 st.error(str(e))
                 st.stop()
             field.empty()
+            report, opinions_data = analisis.split_fantasticos(report)
+            if opinions_data:
+                analisis.save_fantasticos(opinions_data, week)
             analisis.save(report, week, mine["roster_id"])
             st.write("🌐 Publicando en la web pública...")
             st.session_state["publicado"] = analisis.publish(f"Análisis semana {week} · {team_name(users, owner_id).strip()}")
@@ -774,17 +777,28 @@ with tab_matchups:
 with tab_waivers:
     PARA_TI = "🎯 Para tu equipo"
     choice = PARA_TI
+    # Opiniones de Los Fantásticos extraídas en el último análisis de la semana
+    opinions_data = analisis.load_fantasticos(week)
+    opinions = waivers.match_opinions(opinions_data, players)
     if needs:
         st.markdown(vistas.render_needs(needs, players, team_name(users, owner_id).strip(),
                                         waivers.drop_candidate(mine, players, weekly_all, projections,
                                                                league["scoring_settings"])), unsafe_allow_html=True)
+        if opinions_data:
+            owner_of = {pid: team_name(users, r["owner_id"]).strip() for r in rosters for pid in r["players"] or []}
+            with st.expander(f"🎙️ Lo que dicen Los Fantásticos ({len(opinions_data.get('jugadores', []))} jugadores)",
+                             expanded=True):
+                st.markdown(vistas.render_opinions(opinions_data, opinions, players, owner_of), unsafe_allow_html=True)
+        else:
+            st.caption("🎙️ Las opiniones de Los Fantásticos aparecerán aquí cuando se analice la jornada "
+                       "con «Analizar mi semana».")
         choice = st.segmented_control("Ver libres", [PARA_TI] + [n["pos"] for n in needs], default=PARA_TI,
                                       key="waiver_pos", label_visibility="collapsed") or PARA_TI
-        fa_rows = waivers.with_gain(fa_pool, needs)
+        fa_rows = waivers.with_gain(fa_pool, needs, opinions)
         if choice == PARA_TI:
-            # Los que más mejoran a tus titulares, como mucho 3 por posición para que haya variedad
+            # Los que más te mejoran (con la opinión de Los Fantásticos), como mucho 3 por posición
             per_pos, picks = {}, []
-            for f in sorted((f for f in fa_rows if f["gain"] > 0.3), key=lambda f: -f["gain"]):
+            for f in sorted((f for f in fa_rows if f["score"] > 0.3 and not f["out"]), key=lambda f: -f["score"]):
                 if per_pos.get(f["pos"], 0) < 3:
                     per_pos[f["pos"]] = per_pos.get(f["pos"], 0) + 1
                     picks.append(f)
