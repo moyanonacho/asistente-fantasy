@@ -329,6 +329,13 @@ if not username or not league_id:
     st.stop()
 if st.sidebar.button("Actualizar datos"):
     st.cache_data.clear()
+# Resultado de la publicación automática tras un análisis o pronóstico
+if "publicado" in st.session_state:
+    ok, msg = st.session_state.pop("publicado")
+    if ok:
+        st.toast("🌐 Publicado en la web pública: aparecerá en 1-2 minutos", icon="✅")
+    else:
+        st.toast(f"No se ha podido publicar ({msg}). Usa publicar.bat.", icon="⚠️", duration="long")
 
 with st.spinner("Descargando datos de Sleeper..."):
     data = load_league_data(username, league_id)
@@ -465,6 +472,8 @@ if modo == MODO_NFL:
                     st.stop()
                 field.empty()
                 partidos.save_picks(nfl_season, week, new_picks)
+                st.write("🌐 Publicando en la web pública...")
+                st.session_state["publicado"] = analisis.publish(f"Pronósticos semana {week}")
                 status.update(label=f"¡{len(new_picks)} partidos pronosticados!", state="complete", expanded=False)
             st.rerun()
     if picks_made:
@@ -656,6 +665,8 @@ with tab_ai:
                 st.stop()
             field.empty()
             analisis.save(report, week, mine["roster_id"])
+            st.write("🌐 Publicando en la web pública...")
+            st.session_state["publicado"] = analisis.publish(f"Análisis semana {week} · {team_name(users, owner_id).strip()}")
             status.update(label="¡Análisis completado!", state="complete", expanded=False)
         st.rerun()  # recarga para mostrar el informe nuevo con sus fuentes en el desplegable
 

@@ -1,5 +1,6 @@
 """El "cerebro": prepara toda la información y se la pasa a Claude Code (con tu suscripción)."""
 import json
+import os
 import shutil
 import subprocess
 from datetime import datetime
@@ -281,6 +282,36 @@ def save(report, week, roster_id):
     path = ANALYSIS_DIR / f"semana_{week:02d}_equipo{roster_id:02d}_{datetime.now():%Y%m%d_%H%M}.md"
     path.write_text(report, encoding="utf-8")
     return path
+
+
+GIT = shutil.which("git") or r"C:\Program Files\Git\cmd\git.exe"
+
+
+def publish(message):
+    """Sube a GitHub los informes y pronósticos nuevos para que aparezcan en la web pública.
+
+    Devuelve (ok, texto). Nunca pide nada en pantalla: si GitHub necesita volver a iniciar sesión,
+    falla y hay que usar publicar.bat a mano.
+    """
+    root = Path(__file__).parent
+    if not (root / ".git").exists() or not Path(GIT).exists():
+        return False, "no hay repositorio de Git en esta carpeta"
+    env = {**os.environ, "GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "never"}
+
+    def git(*args):
+        return subprocess.run([GIT, *args], cwd=root, env=env, capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=90)
+
+    try:
+        git("add", "data/analisis", "data/partidos")
+        git("commit", "-m", message)  # si no hay nada nuevo falla, pero puede quedar algo pendiente de subir
+        push = git("push", "origin", "main")
+    except (OSError, subprocess.TimeoutExpired) as e:
+        return False, str(e)
+    if push.returncode != 0:
+        lines = (push.stderr or push.stdout).strip().splitlines()
+        return False, lines[-1] if lines else f"git push terminó con código {push.returncode}"
+    return True, "publicado en la web pública"
 
 
 def latest(week, roster_id):
