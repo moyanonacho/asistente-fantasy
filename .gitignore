@@ -20,6 +20,5 @@
 !data/
 !data/analisis/
 !data/analisis/*.md
-!data/analisis/fantasticos_*.json
 !data/partidos/
 !data/partidos/*.json

@@ -202,51 +202,6 @@ def render_needs(needs, players, team, drop):
 </div>"""
 
 
-OPINION_LABEL = {"fichar": "🟢 Fichar", "vigilar": "👀 Vigilar", "evitar": "⛔ Evitar"}
-
-
-def _opinion_badge(opinion):
-    if not opinion:
-        return ""
-    return (f'<div class="fx-op {opinion["veredicto"]}">🎙️ <b>{OPINION_LABEL[opinion["veredicto"]]}</b> · '
-            f'{_e(opinion.get("comentario", ""))}</div>')
-
-
-def render_opinions(data, matched, players, owner_of):
-    """Jugadores que recomiendan (o desaconsejan) Los Fantásticos y si están libres en la liga."""
-    by_name = {item["nombre"]: pid for pid, item in matched.items()}
-    order = {"fichar": 0, "vigilar": 1, "evitar": 2}
-    items = sorted(data.get("jugadores", []), key=lambda i: order.get(i.get("veredicto"), 3))
-    cards = []
-    for item in items:
-        if item.get("veredicto") not in order:
-            continue
-        pid = by_name.get(item["nombre"])
-        p = players.get(pid, {}) if pid else {}
-        pos = p.get("position", "")
-        if not pid:
-            where = '<span class="fx-op-where unk">No encontrado en Sleeper</span>'
-        elif pid in owner_of:
-            where = f'<span class="fx-op-where taken">Tiene dueño: {_e(owner_of[pid])}</span>'
-        else:
-            where = '<span class="fx-op-where free">✅ Libre en tu liga</span>'
-        chip = f'<span class="fx-pos" style="--pos:{POS_COLORS.get(pos, "#64748B")}">{_e(pos)}</span>' if pos else ""
-        cards.append(f"""<div class="fx-op-card {item['veredicto']}">
-  <div class="fx-op-top">{chip}<b>{_e(p.get('full_name') or item['nombre'])}</b>
-    <span class="fx-op-lbl">{OPINION_LABEL[item['veredicto']]}</span></div>
-  <div class="fx-op-txt">{_e(item.get('comentario', ''))}</div>
-  {where}
-</div>""")
-    videos = " · ".join(f"«{_e(v)}»" for v in data.get("videos", []))
-    return f"""<div class="fx-needs-box">
-  <div class="fx-needs-title">🎙️ Lo que dicen Los Fantásticos · semana {data.get('semana', '?')}</div>
-  <div class="fx-mk-sub" style="margin:-6px 0 10px">{videos} · extraído por Claude el {_e(data.get('fecha', ''))}</div>
-  <div class="fx-needs">{''.join(cards) or '<div class="fx-mk-sub">No hablan de waivers en estos vídeos.</div>'}</div>
-  <div class="fx-mk-foot">Su opinión también cuenta al ordenar los libres de abajo: fichar suma 2 puntos de valor,
-  vigilar 0,5 y evitar resta 2 (el valor mostrado no cambia).</div>
-</div>"""
-
-
 def render_free_agents(rows, players, title, subtitle):
     """Tabla de agentes libres con su valor real y cuánto mejoran al equipo."""
     name = lambda pid: players.get(pid, {}).get("full_name") or pid
@@ -267,7 +222,7 @@ def render_free_agents(rows, players, title, subtitle):
   <td class="fx-mk-rank">{i + 1}</td>
   <td><div class="fx-mk-name">{_e(name(f['pid']))} {INJURY_ICON.get(status, '')}</div>
       <div class="fx-mk-sub"><span class="fx-pos" style="--pos:{POS_COLORS.get(f['pos'], '#64748B')}">{f['pos']}</span>
-      {_e(p.get('team') or 'FA')}{' · ' + _e(status) if status else ''}</div>{_opinion_badge(f.get('opinion'))}</td>
+      {_e(p.get('team') or 'FA')}{' · ' + _e(status) if status else ''}</div></td>
   <td class="fx-fa-val">{f['rating']:.1f}</td>
   <td>{f['avg']:.1f}</td>
   <td>{f['last3']:.1f}</td>
@@ -891,22 +846,6 @@ CSS = """
               padding: 8px 12px; color: #F2D6D6; font-size: 0.85rem; }
 .fx-nd-drop b { color: #FFFFFF; }
 .fx-fa-val { color: #FFD23F !important; font-weight: 800; font-size: 1rem; }
-/* Opiniones de Los Fantásticos */
-.fx-op { margin-top: 4px; font-size: 0.75rem; color: #DCE4F2; font-family: 'Segoe UI', sans-serif; max-width: 360px;
-         border-left: 3px solid #4A5D82; padding-left: 6px; }
-.fx-op.fichar { border-left-color: #2BD576; } .fx-op.vigilar { border-left-color: #FFD23F; }
-.fx-op.evitar { border-left-color: #FF4D4D; }
-.fx-op-card { background: #16223A; border: 1px solid #2E4470; border-left: 5px solid #4A5D82; border-radius: 12px;
-              padding: 10px 12px; color: #DCE4F2; font-size: 0.85rem; }
-.fx-op-card.fichar { border-left-color: #2BD576; } .fx-op-card.vigilar { border-left-color: #FFD23F; }
-.fx-op-card.evitar { border-left-color: #FF4D4D; }
-.fx-op-top { display: flex; align-items: center; gap: 6px; color: #FFFFFF; flex-wrap: wrap; }
-.fx-op-lbl { margin-left: auto; font-size: 0.75rem; font-weight: 800; }
-.fx-op-txt { margin: 6px 0; color: #C9D3E6; font-size: 0.8rem; }
-.fx-op-where { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
-.fx-op-where.free { background: rgba(43, 213, 118, 0.14); color: #2BD576; }
-.fx-op-where.taken { background: rgba(143, 163, 199, 0.12); color: #B8C4D9; }
-.fx-op-where.unk { background: rgba(255, 210, 63, 0.1); color: #FFD23F; }
 .fx-mk-sub .fx-pos { margin-right: 4px; }
 
 /* ---------- Enfrentamiento ---------- */

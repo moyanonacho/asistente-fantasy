@@ -3,9 +3,6 @@
 Se basa en las estadísticas reales de cada jornada de Sleeper (también de los jugadores libres),
 puntuadas con las reglas de la liga.
 """
-import re
-import unicodedata
-
 from analisis import player_value
 from proyecciones import projected_points
 
@@ -136,50 +133,17 @@ def drop_candidate(roster, players, weekly, projections, scoring):
     return pid, _value(pid, weekly, players)
 
 
-# Cuánto pesa la opinión de Los Fantásticos al ordenar (en puntos de valor; no cambia el valor mostrado)
-OPINION_BONUS = {"fichar": 2.0, "vigilar": 0.5, "evitar": -2.0}
-
-
-def _norm(name):
-    name = re.sub(r"[^a-z ]", "", unicodedata.normalize("NFKD", name.lower()).encode("ascii", "ignore").decode())
-    return "".join(w for w in name.split() if w not in ("jr", "sr", "ii", "iii", "iv", "v"))
-
-
-def match_opinions(data, players):
-    """Asocia cada jugador que nombran Los Fantásticos con su ficha de Sleeper: {player_id: opinión}."""
-    if not data:
-        return {}
-    index = {}
-    for pid, p in players.items():
-        if p.get("full_name") and position_of(p) in POSITIONS:
-            key = _norm(p["full_name"])
-            # Si dos jugadores se llaman igual, nos quedamos con el que tiene equipo NFL
-            if key not in index or (p.get("team") and not players[index[key]].get("team")):
-                index[key] = pid
-    out = {}
-    for item in data.get("jugadores", []):
-        pid = index.get(_norm(item.get("nombre", "")))
-        if pid and item.get("veredicto") in OPINION_BONUS:
-            out[pid] = item
-    return out
-
-
-def with_gain(pool, needs, opinions=None):
-    """Añade a cada libre cuánto mejora al titular más flojo de su posición en este equipo, la opinión de
-    Los Fantásticos y una nota para ordenar (mejora + opinión).
+def with_gain(pool, needs):
+    """Añade a cada libre cuánto mejora al titular más flojo de su posición en este equipo.
     Los lesionados que no van a jugar no mejoran nada de momento: van al final de su posición."""
-    opinions = opinions or {}
     bars = {n["pos"]: n for n in needs}
     out = []
     for f in pool:
         n = bars.get(f["pos"])
         gain = f["rating"] - n["bar"] if n and not f["out"] else 0.0
         replaces = None if not n or n["hole"] or not n["weakest"] else n["weakest"][0]
-        opinion = opinions.get(f["pid"])
-        bonus = OPINION_BONUS[opinion["veredicto"]] if opinion else 0.0
-        out.append({**f, "gain": gain, "replaces": replaces, "hole": bool(n and n["hole"]),
-                    "opinion": opinion, "score": gain + bonus, "pos_score": f["rating"] + bonus})
-    return sorted(out, key=lambda f: (f["out"], -f["pos_score"]))
+        out.append({**f, "gain": gain, "replaces": replaces, "hole": bool(n and n["hole"])})
+    return sorted(out, key=lambda f: f["out"])  # orden estable: dentro de cada grupo sigue por valor
 
 
 def needs_text(needs, players):
