@@ -158,6 +158,94 @@ def render_market(players, free_agents, drops, waiver_run, faab_left, faab_total
 </div>"""
 
 
+def render_needs(needs, players, team, drop):
+    """Fichas por posición: qué necesita reforzar el equipo y el mejor libre que le mejora."""
+    from waivers import LEVELS
+    name = lambda pid: players.get(pid, {}).get("full_name") or pid
+    tiles = []
+    for n in sorted(needs, key=lambda n: (LEVELS[n["level"]][0], -n["gain"])):
+        if n["hole"]:
+            out = ", ".join(_e(name(pid)) for pid in n["out_starters"])
+            weak = f'<span class="fx-nd-hole">Hueco sin cubrir{" (" + out + " no juega)" if out else ""}</span>'
+        elif n["weakest"]:
+            pid, v = n["weakest"]
+            weak = f'{_e(name(pid))} <b>{v["rating"]:.1f}</b>'
+        else:
+            weak = "—"
+        if n["best"]:
+            b = n["best"]
+            gain = (f'<i class="up">+{n["gain"]:.1f}</i>' if n["gain"] > 0.3
+                    else f'<i class="flat">{n["gain"]:+.1f}</i>')
+            best = f'{_e(name(b["pid"]))} <b>{b["rating"]:.1f}</b> {gain}'
+        else:
+            best = "—"
+        tiles.append(f"""<div class="fx-nd {n['level']}">
+  <div class="fx-nd-top"><span class="fx-pos" style="--pos:{POS_COLORS.get(n['pos'], '#64748B')}">{n['pos']}</span>
+    <span class="fx-nd-lvl">{LEVELS[n['level']][1]}</span></div>
+  <div class="fx-nd-rank">Puesto <b>{n['rank']}º</b> de {n['teams']} en la liga</div>
+  <div class="fx-nd-row"><small>Tu titular más flojo</small>{weak}</div>
+  <div class="fx-nd-row"><small>Mejor libre</small>{best}</div>
+</div>""")
+    drop_html = ""
+    if drop:
+        pid, v = drop
+        drop_html = (f'<div class="fx-nd-drop">✂️ Si fichas, el primer candidato a salir es <b>{_e(name(pid))}</b> '
+                     f'({_e(players.get(pid, {}).get("position", ""))}, valor {v["rating"]:.1f}), '
+                     f'tu suplente sano con menos valor.</div>')
+    return f"""<div class="fx-needs-box">
+  <div class="fx-needs-title">🎯 Qué necesita reforzar {_e(team)}</div>
+  <div class="fx-needs">{''.join(tiles)}</div>
+  {drop_html}
+  <div class="fx-mk-foot">Valor = mitad media de la temporada y mitad media de los 3 últimos partidos, con la puntuación
+  de tu liga (los partidos con 0 no cuentan). Puesto en la liga: media de valor de tus titulares en esa posición frente
+  a los otros equipos. Los lesionados que no van a jugar cuentan como hueco.</div>
+</div>"""
+
+
+def render_free_agents(rows, players, title, subtitle):
+    """Tabla de agentes libres con su valor real y cuánto mejoran al equipo."""
+    name = lambda pid: players.get(pid, {}).get("full_name") or pid
+    body = []
+    for i, f in enumerate(rows):
+        p = players.get(f["pid"], {})
+        status = p.get("injury_status") or ""
+        if f["out"]:
+            fit = '<span class="fx-sig risk">🏥 Lesionado: para guardar</span>'
+        elif f["hole"] and f["gain"] > 0:
+            fit = '<span class="fx-sig hot">🚨 Cubre un hueco</span>'
+        elif f["gain"] > 0.3:
+            fit = (f'<span class="fx-sig buy">▲ +{f["gain"]:.1f}</span>'
+                   f'<div class="fx-mk-sub">sobre {_e(name(f["replaces"]))}</div>')
+        else:
+            fit = '<span class="fx-sig watch">Fondo de armario</span>'
+        body.append(f"""<tr>
+  <td class="fx-mk-rank">{i + 1}</td>
+  <td><div class="fx-mk-name">{_e(name(f['pid']))} {INJURY_ICON.get(status, '')}</div>
+      <div class="fx-mk-sub"><span class="fx-pos" style="--pos:{POS_COLORS.get(f['pos'], '#64748B')}">{f['pos']}</span>
+      {_e(p.get('team') or 'FA')}{' · ' + _e(status) if status else ''}</div></td>
+  <td class="fx-fa-val">{f['rating']:.1f}</td>
+  <td>{f['avg']:.1f}</td>
+  <td>{f['last3']:.1f}</td>
+  <td>{f['games']}</td>
+  <td>{f['proj']:.1f}</td>
+  <td class="fx-mk-up">{'▲ ' + _k(f['adds']) if f['adds'] else '—'}</td>
+  <td>{fit}</td>
+</tr>""")
+    if not body:
+        body.append('<tr><td colspan="9" class="fx-mk-sub">No hay agentes libres con puntos en esta posición.</td></tr>')
+    return f"""<div class="fx-market">
+  <div class="fx-mk-head"><div class="fx-mk-title">{_e(title)}</div></div>
+  <div class="fx-mk-sub" style="margin:-6px 0 10px">{_e(subtitle)}</div>
+  <div class="fx-mk-scroll"><table class="fx-mk-table">
+    <thead><tr><th>#</th><th>Jugador</th><th>Valor</th><th>Media</th><th>Últ. 3</th><th>PJ</th><th>Proy. semana</th>
+    <th>Altas 24 h</th><th>Para tu equipo</th></tr></thead>
+    <tbody>{''.join(body)}</tbody>
+  </table></div>
+  <div class="fx-mk-foot">PJ: partidos jugados con puntos · Proy. semana: proyección de Sleeper para esta jornada con tu
+  puntuación · Altas 24 h: veces que lo han fichado en todo Sleeper</div>
+</div>"""
+
+
 # --- Mi equipo (tarjetas de jugador) ---------------------------------------------
 POS_COLORS = {"QB": "#E5484D", "RB": "#2EAD6B", "WR": "#3B82F6", "TE": "#F59E0B", "K": "#A855F7",
               "DL": "#E07B39", "LB": "#14B8A6", "DB": "#EC4899"}
@@ -731,6 +819,34 @@ CSS = """
 .fx-sig.watch { background: rgba(143, 163, 199, 0.12); color: #B8C4D9 !important; border: 1px solid #4A5D82; }
 .fx-sig.risk { background: rgba(255, 210, 63, 0.12); color: #FFD23F !important; border: 1px solid #B8961F; }
 .fx-mk-foot { font-size: 0.72rem; color: #6F84AB; margin-top: 10px; }
+
+/* ---------- Waivers a medida: necesidades por posición ---------- */
+.fx-needs-box { background: linear-gradient(180deg, #0B1120, #111A2E); border: 1px solid #2A3A5C; border-radius: 16px;
+                padding: 16px 18px; box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45); margin-bottom: 16px; }
+.fx-needs-title { font-family: 'Oswald', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: #FFFFFF;
+                  margin-bottom: 12px; }
+.fx-needs { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 10px; }
+.fx-nd { background: #16223A; border: 1px solid #2E4470; border-left: 5px solid #4A5D82; border-radius: 12px;
+         padding: 10px 12px; color: #DCE4F2; font-size: 0.85rem; }
+.fx-nd.urgente { border-left-color: #FF3B3B; box-shadow: 0 0 14px rgba(255, 59, 59, 0.25); }
+.fx-nd.prioridad { border-left-color: #FF7A00; }
+.fx-nd.mejorable { border-left-color: #FFD23F; }
+.fx-nd.cubierta { border-left-color: #2BD576; opacity: 0.85; }
+.fx-nd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.fx-nd-lvl { font-weight: 800; font-size: 0.8rem; color: #FFFFFF; }
+.fx-nd-rank { color: #B8C4D9; font-size: 0.8rem; margin-bottom: 6px; }
+.fx-nd-rank b { color: #FFD23F; }
+.fx-nd-row { margin-top: 4px; color: #FFFFFF; }
+.fx-nd-row small { display: block; color: #8FA3C7; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.fx-nd-row b { color: #FFD23F; margin-left: 4px; }
+.fx-nd-row i { font-style: normal; font-weight: 800; margin-left: 4px; }
+.fx-nd-row i.up { color: #2BD576; } .fx-nd-row i.flat { color: #8FA3C7; }
+.fx-nd-hole { color: #FF6B6B; font-weight: 700; }
+.fx-nd-drop { margin-top: 12px; background: rgba(255, 77, 77, 0.08); border: 1px dashed #8A3A3A; border-radius: 10px;
+              padding: 8px 12px; color: #F2D6D6; font-size: 0.85rem; }
+.fx-nd-drop b { color: #FFFFFF; }
+.fx-fa-val { color: #FFD23F !important; font-weight: 800; font-size: 1rem; }
+.fx-mk-sub .fx-pos { margin-right: 4px; }
 
 /* ---------- Enfrentamiento ---------- */
 .fx-vs-banner {

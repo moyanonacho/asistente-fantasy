@@ -235,7 +235,8 @@ plantilla en este orden de preferencia: 1) pasar al IR a otro jugador que sí se
 
 ### 📈 Waivers
 Hasta 3 jugadores libres a pedir, por orden de prioridad, con a quién soltar a cambio y por qué.
-Si no merece la pena hacer cambios, dilo.
+Prioriza las posiciones marcadas como Urgente o Prioridad en NECESIDADES POR POSICIÓN y busca también libres
+que no estén en tendencia si mejoran al titular más flojo. Si no merece la pena hacer cambios, dilo.
 
 REGLAS PARA RECOMENDAR CORTES (en esta sección y en la del IR):
 - Decide a quién cortar por su RENDIMIENTO REAL: media de puntos, media de las 3 últimas jornadas y partidos jugados.

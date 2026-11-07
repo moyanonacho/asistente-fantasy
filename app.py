@@ -20,6 +20,7 @@ import partidos
 import proyecciones
 import sleeper
 import vistas
+import waivers
 
 load_dotenv()
 # En Streamlit Cloud no hay .env: la configuración llega por los "Secrets" de la app
@@ -233,6 +234,12 @@ def load_team_colors():
 def load_projections(season, week):
     """Proyecciones de la semana de Sleeper (cada 30 minutos)."""
     return sleeper.get_projections(season, week)
+
+
+@st.cache_data(ttl=3 * 3600)
+def load_stats(season, last_week):
+    """Estadísticas reales de cada jornada jugada de todos los jugadores, también los libres (cada 3 horas)."""
+    return {wk: sleeper.get_stats(season, wk) for wk in range(1, last_week + 1)}
 
 
 @st.cache_data(ttl=3 * 3600)
@@ -577,6 +584,15 @@ try:
     games_by_team = proyecciones.game_by_team(load_games(int(league["season"]), week)[0])
 except Exception:
     projections, games_by_team = {}, {}
+# Waivers a medida: valor real de todos los jugadores (también los libres) con la puntuación de la liga
+try:
+    weekly_all = waivers.weekly_from_stats(load_stats(int(league["season"]), data["last_done"]),
+                                           league["scoring_settings"])
+except Exception:
+    weekly_all = {}
+fa_pool = waivers.free_agent_pool(players, rosters, usable, weekly_all, projections, league["scoring_settings"],
+                                  adds=dict(free_agents)) if weekly_all else []
+needs = waivers.team_needs(league, mine, rosters, players, weekly_all, fa_pool) if weekly_all else []
 try:
     team_colors_nfl = load_team_colors()
 except Exception:
@@ -649,6 +665,8 @@ with tab_ai:
             context = analisis.build_context(league, mine, rival_roster, players, free_agents, week,
                                              team=team_name(users, owner_id).strip(), manager=me["display_name"],
                                              weekly=weekly)
+            if needs:
+                context += "\n" + "\n".join(waivers.needs_text(needs, players))
             notes = analisis.load_notes(mine["roster_id"])
             if notes.strip():
                 st.write("📝 Incluyendo tus opiniones para que Claude las examine")
@@ -754,15 +772,45 @@ with tab_matchups:
 
 # --- Waivers -----------------------------------------------------------------
 with tab_waivers:
-    if free_agents:
+    PARA_TI = "🎯 Para tu equipo"
+    choice = PARA_TI
+    if needs:
+        st.markdown(vistas.render_needs(needs, players, team_name(users, owner_id).strip(),
+                                        waivers.drop_candidate(mine, players, weekly_all, projections,
+                                                               league["scoring_settings"])), unsafe_allow_html=True)
+        choice = st.segmented_control("Ver libres", [PARA_TI] + [n["pos"] for n in needs], default=PARA_TI,
+                                      key="waiver_pos", label_visibility="collapsed") or PARA_TI
+        fa_rows = waivers.with_gain(fa_pool, needs)
+        if choice == PARA_TI:
+            # Los que más mejoran a tus titulares, como mucho 3 por posición para que haya variedad
+            per_pos, picks = {}, []
+            for f in sorted((f for f in fa_rows if f["gain"] > 0.3), key=lambda f: -f["gain"]):
+                if per_pos.get(f["pos"], 0) < 3:
+                    per_pos[f["pos"]] = per_pos.get(f["pos"], 0) + 1
+                    picks.append(f)
+            st.markdown(vistas.render_free_agents(
+                picks[:12], players, "🎯 FICHAJES QUE TE MEJORAN",
+                "Libres que superan a tu titular más flojo de su posición, de más a menos mejora"),
+                unsafe_allow_html=True)
+        else:
+            st.markdown(vistas.render_free_agents(
+                [f for f in fa_rows if f["pos"] == choice][:15], players, f"MEJORES {choice} LIBRES",
+                "Ordenados por valor (media de la temporada y forma reciente)"), unsafe_allow_html=True)
+    else:
+        st.warning("No se han podido descargar las estadísticas de Sleeper: solo se muestran las tendencias.")
+    market = free_agents if choice == PARA_TI else [
+        (pid, c) for pid, c in free_agents if waivers.position_of(players.get(pid, {})) == choice]
+    st.markdown("")
+    if market:
         budget = league["settings"].get("waiver_budget", 0)
         st.markdown(vistas.render_market(
-            players, free_agents, data["drops"],
+            players, market, data["drops"],
             vistas.next_waiver_run(league["settings"].get("waiver_day_of_week", 2)),
             faab_left=budget - mine["settings"].get("waiver_budget_used", 0), faab_total=budget,
         ), unsafe_allow_html=True)
     else:
-        st.write("Ninguno de los jugadores en tendencia está libre en tu liga.")
+        st.write("Ninguno de los jugadores en tendencia" + (f" ({choice})" if choice != PARA_TI else "")
+                 + " está libre en tu liga.")
 
 # --- Clasificación -----------------------------------------------------------
 with tab_league:

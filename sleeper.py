@@ -61,6 +61,14 @@ def get_projections(season, week):
     return {p["player_id"]: p for p in r.json()}
 
 
+def get_stats(season, week):
+    """Estadísticas reales de una jornada de TODOS los jugadores (también los libres): {player_id: {...}}."""
+    r = requests.get(f"https://api.sleeper.app/stats/nfl/{season}/{week}",
+                     params=[("season_type", "regular")] + [("position[]", p) for p in PROJ_POSITIONS], timeout=30)
+    r.raise_for_status()
+    return {p["player_id"]: p for p in r.json()}
+
+
 def get_players(max_age_hours=12):
     """Base de datos de todos los jugadores NFL.
 
