@@ -1,0 +1,585 @@
+{
+  "made": "2026-11-19T19:02",
+  "picks": {
+    "401873066": {
+      "id": "401873066",
+      "ganador": "HOU",
+      "confianza": 79,
+      "marcador": "16-27",
+      "resumen": "Houston gana con claridad gracias a su presión, aunque no le tengo confianza a la línea de -12.5.",
+      "argumentos": [
+        "Los Colts son 32º en diferencial de pérdidas (-12) y Daniel Jones lleva 12 INT, frente a una defensa de HOU que es 2ª de la liga en sacks (33).",
+        "El ataque aéreo de HOU es 4º (261.9 yardas/partido) y C.J. Stroud solo lleva 3 INT, mientras que la defensa de IND es 25ª en eficiencia EPA y tiene a Charvarius Ward de baja.",
+        "IND produce muy poco por aire (166.7 yardas, puesto 30) y es 27º en EPA ofensiva, así que dependerá casi por completo de Jonathan Taylor.",
+        "HOU es 29º corriendo (87.2 yardas) y probablemente no tenga a Woody Marks (conmoción), así que puede atascarse cerca de la zona roja (84.38%, puesto 24)."
+      ],
+      "factor_clave": "La presión de Will Anderson Jr. (10.5 sacks) contra un Daniel Jones que pierde muchos balones decidirá cuántas posesiones regala Indianapolis.",
+      "destacados": {
+        "IND": [
+          {
+            "jugador": "Jonathan Taylor",
+            "posicion": "RB",
+            "motivo": "739 yardas y 8 TD; es casi el único recurso fiable de IND"
+          },
+          {
+            "jugador": "Tyler Warren",
+            "posicion": "TE",
+            "motivo": "Máximo receptor del equipo, con 40 recepciones"
+          }
+        ],
+        "HOU": [
+          {
+            "jugador": "C.J. Stroud",
+            "posicion": "QB",
+            "motivo": "2,462 yardas, 19 TD y solo 3 INT"
+          },
+          {
+            "jugador": "Will Anderson Jr.",
+            "posicion": "DEF",
+            "motivo": "10.5 sacks; es el eje de la 2ª mejor defensa en sacks"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, TRENDZONE va unánimemente con Houston, pero 5 de los 7 expertos de CBS eligen a los Colts contra el spread. Concluyo que HOU gana el partido, aunque el margen de 12.5 queda justo por la falta de juego terrestre.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.fantasyalarm.com/articles/nfl/injury-report/nfl-injury-report-2026-fantasy-football-week-11-drake-maye-brock-bowers/198827"
+      ]
+    },
+    "401873070": {
+      "id": "401873070",
+      "ganador": "BUF",
+      "confianza": 92,
+      "marcador": "13-30",
+      "resumen": "Buffalo gana cómodamente ante unos Dolphins sin Malik Willis.",
+      "argumentos": [
+        "BUF es 1º en anotación (31.9 puntos) y convierte el 100% en zona roja, mientras que la defensa de MIA es 27ª en EPA.",
+        "MIA tiene el peor FPI de la liga (-10.1) y es 32º en sacks (13), así que Josh Allen tendrá tiempo de sobra.",
+        "Malik Willis está en IR por una lesión en la zona inguinal y abdominal, de modo que Kyle McCord sale de titular en un ataque que es 29º en yardas de pase.",
+        "James Cook (971 yardas) encabeza el 2º mejor juego terrestre (152.7 yardas) contra una defensa que lo ha hecho mal durante toda la temporada."
+      ],
+      "factor_clave": "La capacidad de MIA para frenar el juego terrestre de Cook antes de que el partido se rompa.",
+      "destacados": {
+        "MIA": [
+          {
+            "jugador": "Ollie Gordon II",
+            "posicion": "RB",
+            "motivo": "539 yardas y 4 TD; es la vía más segura con McCord"
+          },
+          {
+            "jugador": "Jordyn Brooks",
+            "posicion": "DEF",
+            "motivo": "84 placajes, el que más en su equipo"
+          }
+        ],
+        "BUF": [
+          {
+            "jugador": "James Cook III",
+            "posicion": "RB",
+            "motivo": "971 yardas y 9 TD"
+          },
+          {
+            "jugador": "Josh Allen",
+            "posicion": "QB",
+            "motivo": "2,223 yardas y 13 TD; con él el equipo convierte el 100% en zona roja"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, nadie duda de la victoria de Buffalo, pero el spread de 16.5-17 divide opiniones: 4 de los 7 de CBS y parte de TRENDZONE cogen a Miami. Concluyo que BUF gana con holgura y que puede cubrir por la baja de Willis.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.fantasyalarm.com/articles/nfl/injury-report/nfl-injury-report-2026-fantasy-football-week-11-drake-maye-brock-bowers/198827"
+      ]
+    },
+    "401873071": {
+      "id": "401873071",
+      "ganador": "CHI",
+      "confianza": 78,
+      "marcador": "17-28",
+      "resumen": "Chicago, que viene de la semana de descanso, impone su juego terrestre y su defensa en casa.",
+      "argumentos": [
+        "CHI es 4º en yardas de carrera (142.0) y NO es 27º corriendo, así que el control del reloj será de los Bears.",
+        "La defensa de CHI es 7ª en EPA, y NO es 29º en diferencial de pérdidas (-8).",
+        "Los Saints convierten muy bien en zona roja (93.1%, 4º), pero CHI es 32º en ese apartado (73.68%), y ese punto débil puede mantener vivo a NO.",
+        "CHI va 4-1 en casa y llega descansado tras su semana libre, lo que le permite preparar mejor el plan de partido."
+      ],
+      "factor_clave": "Que CHI convierta en touchdowns sus llegadas a zona roja, su gran punto débil (puesto 32).",
+      "destacados": {
+        "NO": [
+          {
+            "jugador": "Chris Olave",
+            "posicion": "WR",
+            "motivo": "59 recepciones y 764 yardas"
+          },
+          {
+            "jugador": "Carl Granderson",
+            "posicion": "DEF",
+            "motivo": "8.5 sacks"
+          }
+        ],
+        "CHI": [
+          {
+            "jugador": "D'Andre Swift",
+            "posicion": "RB",
+            "motivo": "10 TD de carrera"
+          },
+          {
+            "jugador": "Luther Burden III",
+            "posicion": "WR",
+            "motivo": "49 recepciones y 644 yardas"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, TRENDZONE va con Chicago por la ventaja de llegar tras la semana de descanso, mientras que CBS está dividido contra el spread (4-3 a favor de NO). Concluyo que CHI gana con claridad, aunque sus fallos en zona roja hacen dudoso que cubra el spread.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    },
+    "401873073": {
+      "id": "401873073",
+      "ganador": "DAL",
+      "confianza": 76,
+      "marcador": "21-31",
+      "resumen": "El ataque de Dallas se impone, pero su defensa deja que Tennessee se acerque en el marcador.",
+      "argumentos": [
+        "DAL es 5º en EPA ofensiva y 3º en yardas de pase (265.5), y la defensa de TEN es 28ª en EPA.",
+        "La defensa de DAL es la peor de la liga en EPA (puesto 32), lo que da opciones a Cam Ward y Tony Pollard.",
+        "TEN es 28º en tercer down (34.29%), mientras que DAL es 5º (45.11%).",
+        "TEN es 5º en intercepciones (9), así que puede castigar algún error de Prescott."
+      ],
+      "factor_clave": "Si la defensa de Dallas, la peor en EPA, puede detener mínimamente a un ataque que es 30º en yardas.",
+      "destacados": {
+        "TEN": [
+          {
+            "jugador": "Tony Pollard",
+            "posicion": "RB",
+            "motivo": "628 yardas y 6 TD"
+          },
+          {
+            "jugador": "Jacob Martin",
+            "posicion": "DEF",
+            "motivo": "7.5 sacks"
+          }
+        ],
+        "DAL": [
+          {
+            "jugador": "CeeDee Lamb",
+            "posicion": "WR",
+            "motivo": "77 recepciones, 976 yardas y 8 TD"
+          },
+          {
+            "jugador": "Dak Prescott",
+            "posicion": "QB",
+            "motivo": "21 TD y 6 INT"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, la mayoría desconfía de que DAL gane por 8.5 (5 de los 7 de CBS cogen a TEN), y en TRENDZONE recuerdan que los Titans casi siempre pierden por poco. Concluyo que DAL gana, aunque el spread es arriesgado por su defensa.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    },
+    "401873072": {
+      "id": "401873072",
+      "ganador": "DET",
+      "confianza": 70,
+      "marcador": "17-26",
+      "resumen": "Detroit gana en casa ante unos Bucs con Mayfield en duda, aunque la defensa de Tampa mantiene el partido igualado.",
+      "argumentos": [
+        "TB es 32º en yardas de pase (141.9) y 31º en EPA ofensiva, y Mayfield es duda por una lesión de pie y tobillo.",
+        "DET va 5-0 en casa y es 1º en yardas totales (407.6).",
+        "La defensa de TB es 1ª en EPA, en balones recuperados (21) y en intercepciones (16), y Goff tendrá que proteger el balón.",
+        "DET no tiene a Aidan Hutchinson (IR), pero sigue siendo 3º en sacks (32)."
+      ],
+      "factor_clave": "Si Mayfield juega y si TB puede forzar pérdidas para compensar su falta de ataque aéreo.",
+      "destacados": {
+        "TB": [
+          {
+            "jugador": "Bucky Irving",
+            "posicion": "RB",
+            "motivo": "825 yardas y 7 TD; lidera el 1º juego terrestre de la liga"
+          },
+          {
+            "jugador": "Josiah Trotter",
+            "posicion": "DEF",
+            "motivo": "76 placajes en la mejor defensa por EPA"
+          }
+        ],
+        "DET": [
+          {
+            "jugador": "Jahmyr Gibbs",
+            "posicion": "RB",
+            "motivo": "1,000 yardas y 11 TD"
+          },
+          {
+            "jugador": "Amon-Ra St. Brown",
+            "posicion": "WR",
+            "motivo": "755 yardas y 7 TD"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, TRENDZONE va unánimemente con Detroit en casa y considera corta la línea, mientras que CBS se divide 4-3 a favor de TB contra el spread. Concluyo que DET gana y que la duda sobre Mayfield inclina la balanza hacia los Lions.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://baynews9.com/fl/tampa/news/2026/11/16/foot-sprain-may-shelve-baker-mayfield-against-detroit-sunday-",
+        "https://www.si.com/betting/latest-baker-mayfield-injury-update-causes-shift-in-buccaneers-vs-lions-odds-in-nfl-week-11"
+      ]
+    },
+    "401873067": {
+      "id": "401873067",
+      "ganador": "KC",
+      "confianza": 88,
+      "marcador": "10-27",
+      "resumen": "Kansas City domina a unos Cardinals sin quarterback fiable.",
+      "argumentos": [
+        "ARI tiene a Minshew en IR y es 29º en anotación (18.4 puntos).",
+        "KC es 4º en EPA ofensiva y 6º en EPA defensiva, mientras que ARI es 30º en EPA defensiva.",
+        "KC va 4-0 en casa y es 5º en diferencial de pérdidas (+6).",
+        "El punto débil de KC son los equipos especiales (31º en EPA), aunque los de ARI tampoco ayudan (30º)."
+      ],
+      "factor_clave": "Si ARI consigue mover las cadenas sin un quarterback titular sano.",
+      "destacados": {
+        "ARI": [
+          {
+            "jugador": "Trey McBride",
+            "posicion": "TE",
+            "motivo": "78 recepciones; es el principal objetivo de ARI"
+          },
+          {
+            "jugador": "Mack Wilson Sr.",
+            "posicion": "DEF",
+            "motivo": "72 placajes"
+          }
+        ],
+        "KC": [
+          {
+            "jugador": "Patrick Mahomes",
+            "posicion": "QB",
+            "motivo": "19 TD y 4 INT"
+          },
+          {
+            "jugador": "Kenneth Walker III",
+            "posicion": "RB",
+            "motivo": "872 yardas y 7 TD"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, 5 de los 7 de CBS cubren con KC, mientras que en TRENDZONE hay dudas sobre si un favorito por más de 16 puntos puede cubrir. Concluyo que KC gana sin problemas y que podría cubrir el spread.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    },
+    "401873076": {
+      "id": "401873076",
+      "ganador": "PIT",
+      "confianza": 67,
+      "marcador": "20-14",
+      "resumen": "La defensa de Pittsburgh se impone en un partido de pocos puntos.",
+      "argumentos": [
+        "PHI es 32º en yardas (281.9) y 29º en EPA ofensiva.",
+        "PIT es 5º en sacks (27) y 9º en EPA defensiva, mientras que la defensa de PHI es 28ª en sacks.",
+        "PIT tiene un diferencial de pérdidas de +5 (6º), mientras que PHI es 32º en balones recuperados (5).",
+        "PIT no tendrá probablemente a Herbig (dudoso), aunque T.J. Watt (7.5 sacks) basta para sostener la presión."
+      ],
+      "factor_clave": "La presión de Watt y de la defensa de PIT contra la débil línea ofensiva y el ataque inoperante de Philadelphia.",
+      "destacados": {
+        "PIT": [
+          {
+            "jugador": "T.J. Watt",
+            "posicion": "DEF",
+            "motivo": "7.5 sacks"
+          },
+          {
+            "jugador": "Jaylen Warren",
+            "posicion": "RB",
+            "motivo": "719 yardas de carrera"
+          }
+        ],
+        "PHI": [
+          {
+            "jugador": "Jalen Hurts",
+            "posicion": "QB",
+            "motivo": "8 TD y 3 INT"
+          },
+          {
+            "jugador": "Saquon Barkley",
+            "posicion": "RB",
+            "motivo": "296 yardas; necesita recuperar protagonismo"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, en TRENDZONE consideran un regalo la línea de PIT -4.5 y 5 de los 7 de CBS cubren con PIT. Concluyo que los Steelers ganan por la diferencia en defensa.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    },
+    "401873068": {
+      "id": "401873068",
+      "ganador": "CAR",
+      "confianza": 60,
+      "marcador": "19-23",
+      "resumen": "Carolina gana un partido igualado ante unos Ravens sin Lamar Jackson.",
+      "argumentos": [
+        "Lamar Jackson está en IR y Marlon Humphrey está de baja, así que BAL tiene el FPI 27º (-5.9).",
+        "CAR es 8º en yardas de pase (252.8), mientras que BAL es 25º en intercepciones (4).",
+        "Derrick Henry (10 TD) y el 9º juego terrestre (125.6 yardas) mantienen a BAL en el partido.",
+        "La defensa de CAR es 30ª en sacks, lo que da tiempo a los quarterbacks de reserva de BAL."
+      ],
+      "factor_clave": "El ataque aéreo de Bryce Young contra una secundaria de BAL sin Humphrey.",
+      "destacados": {
+        "BAL": [
+          {
+            "jugador": "Derrick Henry",
+            "posicion": "RB",
+            "motivo": "699 yardas y 10 TD"
+          },
+          {
+            "jugador": "Zay Flowers",
+            "posicion": "WR",
+            "motivo": "688 yardas"
+          }
+        ],
+        "CAR": [
+          {
+            "jugador": "Bryce Young",
+            "posicion": "QB",
+            "motivo": "2,397 yardas y 16 TD"
+          },
+          {
+            "jugador": "Tetairoa McMillan",
+            "posicion": "WR",
+            "motivo": "660 yardas"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, en TRENDZONE prevén un partido de rebote para los Ravens y un bajón para Carolina, mientras que CBS se inclina 4-3 por CAR. Concluyo que la baja de Lamar pesa más y que CAR gana por poco.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.si.com/onsi/fantasy/injuries/lamar-jackson-ricky-pearsall-week-11-fantasy-football-injuries"
+      ]
+    },
+    "401873074": {
+      "id": "401873074",
+      "ganador": "LAC",
+      "confianza": 56,
+      "marcador": "17-20",
+      "resumen": "Los Chargers ganan un partido feo ante el debut de Klubnik como titular.",
+      "argumentos": [
+        "LAC es 32º en EPA ofensiva y en tercer down (32.28%), así que no tiene margen.",
+        "Geno Smith sufre una conmoción y una lesión de tobillo y se espera que Cade Klubnik debute como titular.",
+        "LAC es 7º en intercepciones (8), lo que puede castigar los errores de un quarterback novato.",
+        "NYJ es 29º en EPA defensiva y 31º en intercepciones (2)."
+      ],
+      "factor_clave": "Los errores de Klubnik contra una secundaria de LAC que provoca pérdidas.",
+      "destacados": {
+        "NYJ": [
+          {
+            "jugador": "Garrett Wilson",
+            "posicion": "WR",
+            "motivo": "633 yardas"
+          },
+          {
+            "jugador": "David Bailey",
+            "posicion": "DEF",
+            "motivo": "7.5 sacks"
+          }
+        ],
+        "LAC": [
+          {
+            "jugador": "Omarion Hampton",
+            "posicion": "RB",
+            "motivo": "474 yardas y 4 TD"
+          },
+          {
+            "jugador": "Khalil Mack",
+            "posicion": "DEF",
+            "motivo": "3 sacks"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, TRENDZONE está dividido (bajón de LAC frente al novato Klubnik) y CBS se inclina 4-3 por NYJ contra el spread. Concluyo que LAC gana por muy poco.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.rotoballer.com/?p=1994612"
+      ]
+    },
+    "401873075": {
+      "id": "401873075",
+      "ganador": "DEN",
+      "confianza": 80,
+      "marcador": "13-23",
+      "resumen": "La defensa de Denver se come a Fernando Mendoza en Mile High.",
+      "argumentos": [
+        "LV es 31º en EPA defensiva y 31º en yardas de carrera (70.7).",
+        "DEN es 7º en intercepciones (8) frente a un quarterback novato.",
+        "DEN va 4-0 en casa, aunque su ataque es 31º en yardas.",
+        "Brock Bowers está en duda por el tobillo y Jaylen Waddle sufre una conmoción."
+      ],
+      "factor_clave": "Si el ataque de Denver, que es 31º en tercer down, puede capitalizar los errores de Mendoza.",
+      "destacados": {
+        "LV": [
+          {
+            "jugador": "Maxx Crosby",
+            "posicion": "DEF",
+            "motivo": "5 sacks"
+          },
+          {
+            "jugador": "Ashton Jeanty",
+            "posicion": "RB",
+            "motivo": "380 yardas"
+          }
+        ],
+        "DEN": [
+          {
+            "jugador": "Bo Nix",
+            "posicion": "QB",
+            "motivo": "11 TD y 4 INT"
+          },
+          {
+            "jugador": "Zach Allen",
+            "posicion": "DEF",
+            "motivo": "4.5 sacks"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, 5 de los 7 de CBS cogen a DEN y TRENDZONE destaca la desventaja de Mendoza. Concluyo que DEN gana con claridad.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.fantasyalarm.com/articles/nfl/injury-report/nfl-injury-report-2026-fantasy-football-week-11-drake-maye-brock-bowers/198827"
+      ]
+    },
+    "401873069": {
+      "id": "401873069",
+      "ganador": "JAX",
+      "confianza": 77,
+      "marcador": "27-19",
+      "resumen": "Jacksonville, el mejor equipo por eficiencia, gana fuera de casa.",
+      "argumentos": [
+        "JAX es 1º en eficiencia total (75.0) y en diferencial de pérdidas (+9).",
+        "Trevor Lawrence lleva 21 TD y 5 INT, y JAX es 3º en tercer down (46.85%).",
+        "NYG tiene un FPI 22º (-3.8) y Winston lleva 5 INT en 166 intentos.",
+        "NYG llega con más descanso tras jugar el jueves, pero no le basta para compensar la diferencia."
+      ],
+      "factor_clave": "Las pérdidas: la defensa de JAX es 3ª en intercepciones (12) y Winston arriesga mucho.",
+      "destacados": {
+        "JAX": [
+          {
+            "jugador": "Trevor Lawrence",
+            "posicion": "QB",
+            "motivo": "21 TD y 5 INT"
+          },
+          {
+            "jugador": "Parker Washington",
+            "posicion": "WR",
+            "motivo": "645 yardas y 6 TD"
+          }
+        ],
+        "NYG": [
+          {
+            "jugador": "Malik Nabers",
+            "posicion": "WR",
+            "motivo": "692 yardas"
+          },
+          {
+            "jugador": "Arvell Reese",
+            "posicion": "DEF",
+            "motivo": "4.5 sacks y 81 placajes"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, 5 de los 7 de CBS cogen a JAX y en TRENDZONE la línea de -6 les parece un regalo. Concluyo que JAX gana por más de un touchdown.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    },
+    "401873077": {
+      "id": "401873077",
+      "ganador": "SF",
+      "confianza": 64,
+      "marcador": "19-24",
+      "resumen": "El ataque de San Francisco supera a la gran defensa de Minnesota en la altitud de México.",
+      "argumentos": [
+        "SF es 1º en EPA ofensiva y en tercer down (52%).",
+        "MIN es 2º en EPA defensiva y 1º en sacks (37), mientras que la defensa de SF es 28ª en sacks.",
+        "MIN es 30º en EPA ofensiva; Kirk Cousins ha vuelto al equipo y el partido se juega a gran altitud.",
+        "SF va 8-1 y tiene el mejor FPI de la liga (6.6)."
+      ],
+      "factor_clave": "Si la presión de MIN puede frenar a Purdy durante cuatro cuartos a gran altitud.",
+      "destacados": {
+        "MIN": [
+          {
+            "jugador": "Justin Jefferson",
+            "posicion": "WR",
+            "motivo": "467 yardas y 4 TD"
+          },
+          {
+            "jugador": "Kirk Cousins",
+            "posicion": "QB",
+            "motivo": "Volvió con 207 yardas y 2 TD contra Green Bay"
+          }
+        ],
+        "SF": [
+          {
+            "jugador": "Christian McCaffrey",
+            "posicion": "RB",
+            "motivo": "10 TD"
+          },
+          {
+            "jugador": "George Kittle",
+            "posicion": "TE",
+            "motivo": "557 yardas y 5 TD"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, 5 de los 7 de CBS van con SF y en TRENDZONE destacan el desgaste por la altitud. Concluyo que SF gana por poco.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/",
+        "https://www.telemundo.com/deportes/nfl/kirk-cousins-el-invitado-inesperado-a-la-fiesta-de-la-nfl-en-mexico-vi-rcna607765"
+      ]
+    },
+    "401873078": {
+      "id": "401873078",
+      "ganador": "CIN",
+      "confianza": 75,
+      "marcador": "31-23",
+      "resumen": "Burrow y el 1º ataque aéreo de la liga se imponen en Washington.",
+      "argumentos": [
+        "CIN es 1º en yardas de pase (298.9) y Burrow lleva 27 TD.",
+        "WSH es 30º en tercer down (33.33%).",
+        "WSH es 3º en diferencial de pérdidas (+7) y podría provocar alguna.",
+        "CIN es 30º en yardas de carrera (84.8), así que dependerá del pase."
+      ],
+      "factor_clave": "La conexión de Burrow con Ja'Marr Chase (878 yardas) contra una secundaria de WSH que es 21ª en intercepciones.",
+      "destacados": {
+        "CIN": [
+          {
+            "jugador": "Joe Burrow",
+            "posicion": "QB",
+            "motivo": "27 TD y 6 INT"
+          },
+          {
+            "jugador": "Ja'Marr Chase",
+            "posicion": "WR",
+            "motivo": "878 yardas y 7 TD"
+          }
+        ],
+        "WSH": [
+          {
+            "jugador": "Jayden Daniels",
+            "posicion": "QB",
+            "motivo": "10 TD y 2 INT"
+          },
+          {
+            "jugador": "Stefon Diggs",
+            "posicion": "WR",
+            "motivo": "6 TD"
+          }
+        ]
+      },
+      "expertos": "Según mi análisis de CBS, TRENDZONE y 100Yardas, 5 de los 7 de CBS cogen a CIN y en TRENDZONE la línea les parece corta. Concluyo que CIN gana con claridad.",
+      "fuentes": [
+        "https://www.cbssports.com/nfl/picks/experts/"
+      ]
+    }
+  }
+}
